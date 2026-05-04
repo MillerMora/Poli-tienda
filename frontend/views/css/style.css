@@ -1,0 +1,36 @@
+nav{
+    height: 50px;
+    display: flex;
+    justify-content: flex-start ;
+    background-color: rgb(27, 196, 49);
+}
+
+.logoContainer{
+    margin-right: 40vh;
+    background-color: aqua;
+    align-items: start;
+}
+
+.logo{
+    width: 50px;
+    height: 50px;
+}
+
+.busqueda{
+    width: 120vh;
+}
+
+.container{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    background-color: rgba(206, 232, 255, 0.692);
+}
+
+.Tarjetaproducto {
+    margin: 20px;
+    border: 1px solid black;
+}
+.ContainerImage, .imagenProducto {
+    width: 400px;
+    height: 250px;
+}
