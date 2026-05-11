@@ -313,7 +313,8 @@ body {
     flex-direction: column;
     gap: 12px;
 }
-.Containercentrado .descripcionProducto button{
+.Containercentrado .descripcionProducto .boton{
+    text-decoration: none;
     width: 100%;
     border: 0;
     border-radius: 12px;
@@ -323,6 +324,6 @@ body {
     font-weight: 700;
     cursor: pointer;
 } 
-.Containercentrado .descripcionProducto button:hover{
+.Containercentrado .descripcionProducto .boton:hover{
     filter: brightness(0.95);
 }
