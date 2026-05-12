@@ -1,0 +1,23 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "e-commerce del poli",
+  "homepage": "https://github.com/MillerMora/Poli-tienda#readme",
+  "bugs": {
+    "url": "https://github.com/MillerMora/Poli-tienda/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MillerMora/Poli-tienda.git"
+  },
+  "license": "ISC",
+  "author": "Miller Mora",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
