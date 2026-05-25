@@ -12,8 +12,13 @@ const dbConfig = {
 }
 
 const conexion = async()=>{
-    const pool = await sqlServer.connect(dbConfig)
-    return pool
+    try {
+        const pool = await sqlServer.connect(dbConfig)
+        return pool
+        
+    } catch (error) {
+        console.log('Error en la conexion: ',error)
+    }
 }
 
 module.exports = conexion
