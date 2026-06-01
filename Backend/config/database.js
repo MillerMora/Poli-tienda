@@ -3,7 +3,7 @@ const sqlServer = require('mssql')
 const dbConfig = {
     user: 'adminTienda',
     password: '12345@Poli',
-    server: 'DESKTOP-EOT0HL3\SQLEXPRESS',
+    server: 'localhost',
     database: 'politienda',
     options: {
         encrypt: false,
