@@ -24,6 +24,8 @@ CREATE TABLE productos (
     titulo       NVARCHAR(150)  NOT NULL,
     descripcion  NVARCHAR(500),
     precio       DECIMAL(10,2)  NOT NULL,
+    stock        INT NOT NULL,
+    imagen       NVARCHAR(255) NOT NULL,
     Estado       NVARCHAR(50)   NOT NULL,
     CONSTRAINT FK_productos_Categorias FOREIGN KEY (Categoria_id)
         REFERENCES Categorias (id_Categoria)
@@ -126,27 +128,27 @@ INSERT INTO Categorias (nombre, descripcion) VALUES
 ('Herramientas Eléctricas', 'Taladros, pulidoras y aspiradoras'),
 ('Cocina Profesional',  'Equipos de cocina de alta gama para uso intensivo');
 
-INSERT INTO productos (Categoria_id, titulo, descripcion, precio, Estado) VALUES
-(1, 'Nevera Samsung No Frost 400L',        'Refrigerador inverter twin cooling, dispensador de agua',        2899000.00, 'Activo'),
-(1, 'Lavadora LG 22kg Carga Frontal',      'Lavadora con inteligencia artificial, vapor y TurboWash',        2499000.00, 'Activo'),
-(1, 'Congelador Challenger 300L',          'Congelador horizontal, control digital, bajo consumo',            999000.00, 'Activo'),
-(2, 'Estufa Mabe 4 Puestos a Gas',         'Estufa de acero inoxidable con horno incluido 76cm',              989000.00, 'Activo'),
-(2, 'Microondas Whirlpool 30L',            'Microondas con grill, 10 niveles de potencia, 900W',              459000.00, 'Activo'),
-(2, 'Horno Eléctrico Haceb 60L',           'Horno eléctrico empotrable con convección y grill',              1299000.00, 'Activo'),
-(3, 'Aire Acondicionado LG Inverter 12000 BTU', 'Mini split inverter, WiFi, modo turbo y ahorro energía',    2199000.00, 'Activo'),
-(3, 'Ventilador de Torre Philips 90cm',    'Ventilador sin aspas con control remoto y temporizador',           389000.00, 'Activo'),
-(4, 'Licuadora Oster 1200W',               'Licuadora de alto rendimiento, vaso de vidrio 1.5L',              289000.00, 'Activo'),
-(4, 'Freidora de Aire Philips Airfryer 4L','Freidora sin aceite, pantalla digital, 7 programas',              699000.00, 'Activo'),
-(4, 'Cafetera Nespresso Vertuo Pop',       'Cafetera de cápsulas 1500W, 5 tamaños de taza',                  499000.00, 'Activo'),
-(5, 'Lavadora Whirlpool 16kg Carga Superior','Lavadora automática con ciclo rápido 30 minutos',              1399000.00, 'Activo'),
-(5, 'Plancha de Vapor Oster SteamMax',     'Plancha cerámica con golpe de vapor, 2600W',                      179000.00, 'Activo'),
-(6, 'Televisor Samsung QLED 55" 4K',       'Smart TV QLED, HDR10+, Tizen OS, 120Hz',                        3499000.00, 'Activo'),
-(6, 'Barra de Sonido LG 2.1 300W',         'Soundbar con subwoofer inalámbrico, Bluetooth 5.0',               899000.00, 'Activo'),
-(7, 'Kit Bombillas LED Inteligentes Philips Hue', 'Pack 3 bombillas WiFi con 16 millones de colores',         459000.00, 'Activo'),
-(8, 'Secador de Cabello Dyson Supersonic', 'Secador profesional motor V9, control de temperatura inteligente',1899000.00, 'Activo'),
-(9, 'Aspiradora Robot iRobot Roomba j7',   'Robot aspirador con mapeo inteligente y vaciado automático',     2299000.00, 'Activo'),
-(9, 'Aspiradora Vertical Dyson V15',       'Aspiradora inalámbrica con sensor láser de partículas',          1799000.00, 'Activo'),
-(10,'Batidora KitchenAid Artisan 4.8L',    'Batidora de pedestal profesional, 10 velocidades, 300W',         2199000.00, 'Activo');
+INSERT INTO productos (Categoria_id, titulo, descripcion, precio, stock, imagen, Estado) VALUES
+(1, 'Nevera Samsung No Frost 400L',        'Refrigerador inverter twin cooling, dispensador de agua',        2899000.00, 15, 'https://placehold.co/600x400/2563eb/ffffff?text=Nevera+Samsung', 'Activo'),
+(1, 'Lavadora LG 22kg Carga Frontal',      'Lavadora con inteligencia artificial, vapor y TurboWash',        2499000.00, 10, 'https://placehold.co/600x400/2563eb/ffffff?text=Lavadora+LG', 'Activo'),
+(1, 'Congelador Challenger 300L',          'Congelador horizontal, control digital, bajo consumo',            999000.00, 8,  'https://placehold.co/600x400/2563eb/ffffff?text=Congelador+Challenger', 'Activo'),
+(2, 'Estufa Mabe 4 Puestos a Gas',         'Estufa de acero inoxidable con horno incluido 76cm',              989000.00, 12, 'https://placehold.co/600x400/16a34a/ffffff?text=Estufa+Mabe', 'Activo'),
+(2, 'Microondas Whirlpool 30L',            'Microondas con grill, 10 niveles de potencia, 900W',              459000.00, 20, 'https://placehold.co/600x400/16a34a/ffffff?text=Microondas+Whirlpool', 'Activo'),
+(2, 'Horno Eléctrico Haceb 60L',           'Horno eléctrico empotrable con convección y grill',              1299000.00, 7,  'https://placehold.co/600x400/16a34a/ffffff?text=Horno+Haceb', 'Activo'),
+(3, 'Aire Acondicionado LG Inverter 12000 BTU', 'Mini split inverter, WiFi, modo turbo y ahorro energía',    2199000.00, 9,  'https://placehold.co/600x400/dc2626/ffffff?text=Aire+LG', 'Activo'),
+(3, 'Ventilador de Torre Philips 90cm',    'Ventilador sin aspas con control remoto y temporizador',           389000.00, 25, 'https://placehold.co/600x400/dc2626/ffffff?text=Ventilador+Philips', 'Activo'),
+(4, 'Licuadora Oster 1200W',               'Licuadora de alto rendimiento, vaso de vidrio 1.5L',              289000.00, 30, 'https://placehold.co/600x400/ea580c/ffffff?text=Licuadora+Oster', 'Activo'),
+(4, 'Freidora de Aire Philips Airfryer 4L','Freidora sin aceite, pantalla digital, 7 programas',              699000.00, 18, 'https://placehold.co/600x400/ea580c/ffffff?text=Airfryer+Philips', 'Activo'),
+(4, 'Cafetera Nespresso Vertuo Pop',       'Cafetera de cápsulas 1500W, 5 tamaños de taza',                  499000.00, 22, 'https://placehold.co/600x400/ea580c/ffffff?text=Cafetera+Nespresso', 'Activo'),
+(5, 'Lavadora Whirlpool 16kg Carga Superior','Lavadora automática con ciclo rápido 30 minutos',              1399000.00, 11, 'https://placehold.co/600x400/9333ea/ffffff?text=Lavadora+Whirlpool', 'Activo'),
+(5, 'Plancha de Vapor Oster SteamMax',     'Plancha cerámica con golpe de vapor, 2600W',                      179000.00, 35, 'https://placehold.co/600x400/9333ea/ffffff?text=Plancha+Oster', 'Activo'),
+(6, 'Televisor Samsung QLED 55" 4K',       'Smart TV QLED, HDR10+, Tizen OS, 120Hz',                        3499000.00, 6,  'https://placehold.co/600x400/0891b2/ffffff?text=TV+Samsung+QLED', 'Activo'),
+(6, 'Barra de Sonido LG 2.1 300W',         'Soundbar con subwoofer inalámbrico, Bluetooth 5.0',               899000.00, 14, 'https://placehold.co/600x400/0891b2/ffffff?text=Barra+Sonido+LG', 'Activo'),
+(7, 'Kit Bombillas LED Inteligentes Philips Hue', 'Pack 3 bombillas WiFi con 16 millones de colores',         459000.00, 40, 'https://placehold.co/600x400/65a30d/ffffff?text=Bombillas+Hue', 'Activo'),
+(8, 'Secador de Cabello Dyson Supersonic', 'Secador profesional motor V9, control de temperatura inteligente',1899000.00, 13, 'https://placehold.co/600x400/be185d/ffffff?text=Secador+Dyson', 'Activo'),
+(9, 'Aspiradora Robot iRobot Roomba j7',   'Robot aspirador con mapeo inteligente y vaciado automático',     2299000.00, 9,  'https://placehold.co/600x400/4338ca/ffffff?text=Roomba+j7', 'Activo'),
+(9, 'Aspiradora Vertical Dyson V15',       'Aspiradora inalámbrica con sensor láser de partículas',          1799000.00, 10, 'https://placehold.co/600x400/4338ca/ffffff?text=Dyson+V15', 'Activo'),
+(10,'Batidora KitchenAid Artisan 4.8L',    'Batidora de pedestal profesional, 10 velocidades, 300W',         2199000.00, 16, 'https://placehold.co/600x400/d97706/ffffff?text=KitchenAid+Artisan', 'Activo');
 
 INSERT INTO Carrito (Usuario_id, fecha, Estado) VALUES
 ( 1, '2024-01-10', 'Completado'),
@@ -263,3 +265,4 @@ INSERT INTO resenas (Pedido_id, Producto_id, Usuario_id, calificacion, comentari
 (15,  7, 15, 5, 'Segundo aire acondicionado que compro de esta marca, nunca falla.',           '2024-05-30'),
 (20, 20, 20, 5, 'La batidora KitchenAid llegó perfectamente empacada, funciona excelente.',    '2024-07-08');
  
+
