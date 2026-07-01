@@ -30,7 +30,10 @@
     <div id="container" class="container"></div>
 
     <div class="botonCarrito">
-        <a href="#openModal" class="carrito"><i class="fa-solid fa-cart-arrow-down"></i></a>
+        <a href="#openModal" class="carrito">
+            <i class="fa-solid fa-cart-arrow-down"></i>
+            <span id="cartBadge" class="cartBadge">0</span>
+        </a>
     </div>
 
     <div id="openModal" class="modalDialog">
@@ -39,39 +42,23 @@
             <h2>Carrito de compras</h2>
             <p>Aquí puedes ver los productos que has agregado al carrito.</p>
 
-            <div class="productos_1">
-                <div class="imagenProducto">
-                    <img src="#" alt="producto">
-                </div>
-                <div class="detalleProducto">
-                    <h2>Titulo producto</h2>
-                    <p>Descripción</p>
-                </div>
+            <div id="carritoModalItems"></div>
+
+            <div class="carritoTotales">
+                <p><span>Subtotal</span> <span id="carritoSubtotal">$0</span></p>
+                <p><span>Envío estimado</span> <span id="carritoEnvio">$0</span></p>
+                <p><strong>Total</strong> <strong id="carritoTotal">$0</strong></p>
             </div>
 
-            <div class="productos_1">
-                <div class="imagenProducto">
-                    <img src="#" alt="producto">
-                </div>
-                <div class="detalleProducto">
-                    <h2>Titulo producto</h2>
-                    <p>Descripción</p>
-                </div>
-            </div>
-
-            <div class="productos_1">
-                <div class="imagenProducto">
-                    <img src="#" alt="producto">
-                </div>
-                <div class="detalleProducto">
-                    <h2>Titulo producto</h2>
-                    <p>Descripción</p>
-                </div>
-            </div>
+            <button id="btnFinalizarCompra" class="btnFinalizarCompra">Finalizar compra</button>
+            <div id="mensajeCarrito"></div>
         </div>
     </div>
+
+    <script src="js/cart.js"></script>
     <script>
         const API_URL = "http://localhost:4000/api/productos";
+        let productosCargados = [];
 
         async function cargarProductos() {
             try {
@@ -82,6 +69,7 @@
                 }
 
                 const productos = await respuesta.json();
+                productosCargados = productos;
                 pintarProductos(productos);
 
             } catch (error) {
@@ -113,9 +101,14 @@
                         <div class="descripcionProdcuto">
                             <p>${producto.titulo}</p>
                             <p>Precio: $${Number(producto.precio).toLocaleString("es-CO")}</p>
-                            <a href="/frontend/views/DetallePedido.html" class="boton">
-                                Ver detalle
-                            </a>
+                            <div class="botonesProducto">
+                                <button type="button" class="boton" onclick="agregarProducto(${producto.id_Producto})">
+                                    Agregar al carrito
+                                </button>
+                                <button type="button" class="botonSecundario" onclick="irADetalle(${producto.id_Producto})">
+                                    Ver detalle
+                                </button>
+                            </div>
                         </div>
                     </div>
                 `;
@@ -123,7 +116,91 @@
             });
         }
 
+        function buscarProducto(id) {
+            return productosCargados.find(p => p.id_Producto === id);
+        }
+
+        function agregarProducto(id) {
+            const producto = buscarProducto(id);
+            if (!producto) return;
+            Carrito.agregar(producto, 1);
+            renderCarritoModal();
+        }
+
+        function irADetalle(id) {
+            const producto = buscarProducto(id);
+            if (!producto) return;
+            Carrito.guardarProductoSeleccionado(producto);
+            window.location.href = "/frontend/views/DetallePedido.html";
+        }
+
+        function renderCarritoModal() {
+            const carrito = Carrito.obtener();
+            const contenedor = document.getElementById("carritoModalItems");
+
+            if (carrito.length === 0) {
+                contenedor.innerHTML = `<p class="carritoVacio">Tu carrito está vacío.</p>`;
+            } else {
+                contenedor.innerHTML = carrito.map(item => `
+                    <div class="carritoItem">
+                        <img src="${item.imagen}" alt="${item.titulo}">
+                        <div class="carritoItemInfo">
+                            <h3>${item.titulo}</h3>
+                            <p>${Carrito.formatoPrecio(item.precio)} c/u</p>
+                            <div class="controlCantidad">
+                                <button type="button" onclick="cambiarCantidad(${item.id}, ${item.cantidad - 1})">-</button>
+                                <span>${item.cantidad}</span>
+                                <button type="button" onclick="cambiarCantidad(${item.id}, ${item.cantidad + 1})">+</button>
+                            </div>
+                        </div>
+                        <button type="button" class="eliminarItem" onclick="quitarDelCarrito(${item.id})">Quitar</button>
+                    </div>
+                `).join("");
+            }
+
+            const totales = Carrito.calcularTotales();
+            document.getElementById("carritoSubtotal").textContent = Carrito.formatoPrecio(totales.subtotal);
+            document.getElementById("carritoEnvio").textContent = Carrito.formatoPrecio(totales.envio);
+            document.getElementById("carritoTotal").textContent = Carrito.formatoPrecio(totales.total);
+            document.getElementById("mensajeCarrito").innerHTML = "";
+        }
+
+        function cambiarCantidad(id, nuevaCantidad) {
+            Carrito.actualizarCantidad(id, nuevaCantidad);
+            renderCarritoModal();
+        }
+
+        function quitarDelCarrito(id) {
+            Carrito.eliminar(id);
+            renderCarritoModal();
+        }
+
+        document.getElementById("btnFinalizarCompra").addEventListener("click", () => {
+            const resultado = Carrito.realizarCompraSimulada();
+            const mensajeDiv = document.getElementById("mensajeCarrito");
+
+            if (!resultado.ok) {
+                mensajeDiv.innerHTML = `<div class="mensajeCarrito error">${resultado.mensaje}</div>`;
+                return;
+            }
+
+            mensajeDiv.innerHTML = `
+                <div class="mensajeCarrito exito">
+                    ¡Compra simulada con éxito! Pedido ${resultado.pedido.numeroPedido} por
+                    ${Carrito.formatoPrecio(resultado.pedido.total)}.
+                </div>
+            `;
+            renderCarritoModal();
+        });
+
+        window.addEventListener("hashchange", () => {
+            if (window.location.hash === "#openModal") {
+                renderCarritoModal();
+            }
+        });
+
         cargarProductos();
+        renderCarritoModal();
     </script>
 
 </body>

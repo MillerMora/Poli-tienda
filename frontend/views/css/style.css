@@ -377,3 +377,180 @@ body {
     height: 100%;
     border: 0;
 }
+
+/* =========================================================
+   Añadido: carrito funcional (agregar / simular compra)
+   No se modifica la posición ni el tamaño del ícono existente.
+   ========================================================= */
+
+.carritoNavLink {
+    position: relative;
+}
+
+.cartBadge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 5px;
+    border-radius: 10px;
+    background: #ff3b30;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.descripcionProdcuto .botonSecundario {
+    text-decoration: none;
+    align-self: flex-start;
+    border: 1px solid rgb(27, 196, 49);
+    border-radius: 10px;
+    padding: 9px 12px;
+    background: #fff;
+    color: rgb(27, 196, 49);
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.descripcionProdcuto .botonSecundario:hover {
+    background: rgba(27, 196, 49, 0.1);
+}
+
+.botonesProducto {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.modalContent .carritoVacio {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.modalContent .carritoItem {
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    gap: 10px;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.modalContent .carritoItem img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    background: #f4f4f4;
+}
+
+.modalContent .carritoItemInfo h3 {
+    margin: 0 0 4px 0;
+    font-size: 0.95rem;
+}
+
+.modalContent .carritoItemInfo p {
+    margin: 2px 0;
+    font-size: 0.85rem;
+    color: rgba(0, 0, 0, 0.65);
+}
+
+.controlCantidad {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.controlCantidad button {
+    width: 26px;
+    height: 26px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    background: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.controlCantidad button:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.eliminarItem {
+    border: 0;
+    background: none;
+    color: #ff3b30;
+    cursor: pointer;
+    font-size: 0.85rem;
+    text-decoration: underline;
+    padding: 0;
+}
+
+.modalContent .carritoTotales {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.modalContent .carritoTotales p {
+    display: flex;
+    justify-content: space-between;
+    margin: 6px 0;
+}
+
+.btnFinalizarCompra {
+    margin-top: 10px;
+    width: 100%;
+    border: 0;
+    border-radius: 12px;
+    padding: 12px 14px;
+    background: rgb(27, 196, 49);
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btnFinalizarCompra:hover {
+    filter: brightness(0.95);
+}
+
+.btnFinalizarCompra:disabled {
+    background: rgba(0, 0, 0, 0.2);
+    cursor: not-allowed;
+}
+
+.mensajeCarrito {
+    margin-top: 10px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+}
+
+.mensajeCarrito.exito {
+    background: rgba(27, 196, 49, 0.15);
+    color: #0b6b1a;
+}
+
+.mensajeCarrito.error {
+    background: rgba(255, 59, 48, 0.15);
+    color: #b3261e;
+}
+
+.pedidoConfirmado {
+    text-align: center;
+    padding: 40px 18px;
+    background: #fff;
+    border-radius: 14px;
+}
+
+.pedidoConfirmado i {
+    font-size: 48px;
+    color: rgb(27, 196, 49);
+}
+
+.pedidoConfirmado h2 {
+    margin: 14px 0 6px 0;
+}

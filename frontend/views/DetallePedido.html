@@ -21,25 +21,56 @@
         <div class="informacion">
             <ul>
                 <li><a href="#" class="user"><i class="fa-regular fa-user"></i></a></li>
+                <li>
+                    <a href="/frontend/views/prodcutos.html#openModal" class="carritoNavLink">
+                        <i class="fa-solid fa-cart-arrow-down"></i>
+                        <span id="cartBadge" class="cartBadge">0</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </nav>
     <div class="containerDetalle">
-        <div class="Containercentrado"> 
+        <div class="Containercentrado" id="detalleProducto">
             <div class="imagenProducto">
-                <img src="https://i.blogs.es/2a0305/original/375_375.jpeg" alt="Imagen del producto">
+                <img id="detalleImagen" src="https://i.blogs.es/2a0305/original/375_375.jpeg" alt="Imagen del producto">
                </div>
             <div class="descripcionProducto">
-                <h2>Nombre del producto</h2>
-                <p>Descripción detallada del producto.</p>
-                <p>Precio: $XX.XX</p>
-                <a href="/frontend/views/carrito.html" class="boton">
+                <h2 id="detalleTitulo">Nombre del producto</h2>
+                <p id="detalleDescripcion">Descripción detallada del producto.</p>
+                <p id="detallePrecio">Precio: $XX.XX</p>
+                <button type="button" id="btnAgregarDetalle" class="boton">
                     Añadir al carrito
-                </a>
+                </button>
+                <div id="mensajeDetalle"></div>
             </div>
         </div>
     </div>
 
+    <script src="js/cart.js"></script>
+    <script>
+        const producto = Carrito.obtenerProductoSeleccionado();
 
+        if (producto) {
+            document.getElementById("detalleImagen").src = producto.imagen;
+            document.getElementById("detalleImagen").alt = producto.titulo;
+            document.getElementById("detalleTitulo").textContent = producto.titulo;
+            document.getElementById("detalleDescripcion").textContent = producto.descripcion || "Sin descripción disponible.";
+            document.getElementById("detallePrecio").textContent = "Precio: " + Carrito.formatoPrecio(producto.precio);
+        } else {
+            document.getElementById("detalleTitulo").textContent = "Producto no encontrado";
+            document.getElementById("detalleDescripcion").textContent =
+                "Vuelve a la lista de productos y elige uno para ver el detalle.";
+            document.getElementById("detallePrecio").style.display = "none";
+            document.getElementById("btnAgregarDetalle").style.display = "none";
+        }
+
+        document.getElementById("btnAgregarDetalle").addEventListener("click", () => {
+            if (!producto) return;
+            Carrito.agregar(producto, 1);
+            document.getElementById("mensajeDetalle").innerHTML =
+                `<div class="mensajeCarrito exito">Se agregó "${producto.titulo}" al carrito.</div>`;
+        });
+    </script>
 </body>
 </html>
